@@ -3,13 +3,16 @@
     echo "<br><br>";
     session_start();
 
+    $mail = isset($_POST["user_email"]) ? $_POST["user_email"] : null;
+    $name = isset($_POST["user_name"]) ? $_POST["user_name"] : null;
+
     if ($_SESSION["valid"] != "YES") {
         header("Location:signin.php?acc=2");
         exit();
     } else {
 
-    // Select data from the table
-    $sql = "SELECT * FROM cmnts";
+    // Select data from the table      WHERE user_email = $mail
+    $sql = "SELECT * FROM cmnts WHERE user_email = '$mail'";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
