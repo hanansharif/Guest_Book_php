@@ -104,8 +104,14 @@ if ($_SESSION["valid"] != "YES") {
                         document.getElementById('commentsContainer').innerHTML = xhr.responseText;
                     }
                 };
-                xhr.open('GET', 'viewCmnts.php', true);
-                xhr.send();
+                // Add the following lines to include $mail and $name as POST parameters
+                var formData = new FormData();
+                formData.append('user_email', '<?php echo $mail; ?>');
+                formData.append('user_name', '<?php echo $name; ?>');
+                xhr.open('POST', 'viewCmnts.php', true);
+                xhr.send(formData);
+                // xhr.open('GET', 'viewCmnts.php', true);
+                // xhr.send();
             });
             document.getElementById('redirectToAddPage').addEventListener('click', function(event) {
                 event.preventDefault();
